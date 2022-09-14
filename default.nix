@@ -9,6 +9,11 @@
   # /proc/driver/nvidia/version. Nix doesn't like zero-sized files (see
   # https://github.com/NixOS/nix/issues/3539 ).
   nvidiaVersionFile ? null,
+
+  # The url of driver in use. This allows the user to use other drivers than
+  # those listed on https://download.nvidia.com/XFree86/Linux-x86_64. Overrides
+  # nvidiaVersion and nvidiaVersionFile.
+  nvidiaUrl ? null,
   # Enable 32 bits driver
   # This is on by default, you can switch it to off if you want to reduce a
   # bit the size of nixGL closure.
@@ -26,6 +31,7 @@ pkgs.callPackage ./nixGL.nix ({
     nvidiaVersion
     nvidiaVersionFile
     nvidiaHash
+    nvidiaUrl
     enable32bits
     ;
   } // (if enableIntelX86Extensions then {}
